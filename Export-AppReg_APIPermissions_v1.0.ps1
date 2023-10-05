@@ -88,18 +88,22 @@ The script uses 3 mandatory parameters:
 The will cause PowerShell to use the 'Microsoft.Graph' module to retrieve all the Application registrations from AzureAD and will export ALL the 'EWS' API Permissions to a file 
 called "Export-AppReg_APIPermissions_<timestamp>.csv" in the 'C:\temp' directory
 
+.EXAMPLE
 .\Export-AppReg_APIPermissions_v0.6.ps1 -UsePSModule:AzureAD -ExportAPIPermissions:EWS -OutputPath:'C:\temp'
 The will cause PowerShell to use the 'AzureAD' module to retrieve all the Application registrations from AzureAD and will export ALL the 'EWS' API Permissions to a file 
 called "Export-AppReg_APIPermissions_<timestamp>.csv" in the 'C:\temp' directory
 
+.EXAMPLE
 .\Export-AppReg_APIPermissions_v0.6.ps1 -UsePSModule:Microsoft.Graph -ExportAPIPermissions:OutlookRESTv2 -OutputPath:'C:\temp'
 The will cause PowerShell to use the 'Microsoft.Graph' module to retrieve all the Application registrations from AzureAD and will export ALL the 'Graph' API Permissions to a file 
 called "Export-AppReg_APIPermissions_<timestamp>.csv" in the 'C:\temp' directory
 
+.EXAMPLE
 .\Export-AppReg_APIPermissions_v0.6.ps1 -UsePSModule:AzureAD -ExportAPIPermissions:OutlookRESTv2 -OutputPath:'C:\temp'
 The will cause PowerShell to use the 'Microsoft.Graph' module to retrieve all the Application registrations from AzureAD and will export ALL the 'Graph' API Permissions to a file 
 called "Export-AppReg_APIPermissions_<timestamp>.csv" in the 'C:\temp' directory
 
+.EXAMPLE
 .\Export-AppReg_APIPermissions_v0.6.ps1 -UsePSModule:Microsoft.Graph -ExportAPIPermissions:All -OutputPath:'C:\temp'
 The will cause PowerShell to use the 'Microsoft.Graph' module to retrieve all the Application registrations from AzureAD and will export ALL API Permissions for ALL Resource Access Group 
 to a file called "Export-AppReg_APIPermissions_<timestamp>.csv" in the 'C:\temp' directory
