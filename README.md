@@ -1,4 +1,4 @@
-# PowerShell Export App Registration API Permisisons
+# PowerShell Export App Registration API Permissions
  PowerShell script to Export App Registration API Permisisons from Azure AD
  
  SYNOPSIS
