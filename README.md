@@ -1,5 +1,14 @@
 # PowerShell Export App Registration API Permissions
  PowerShell script to Export App Registration API Permisisons from Azure AD
+
+Special thanks to my colleagues for providing valuable feedback and validating the script’s functionality:
+-	Dan Bagley
+-	Smart Kamolratanapiboon
+-	Brij Raj Singh
+-	Angélique Conde
+-	Max Vaughn
+-	Bonny Eapen
+-	David Castro Koschny
  
  SYNOPSIS
 Script to export the API Permissions for each Application Registration in Azure AD.
