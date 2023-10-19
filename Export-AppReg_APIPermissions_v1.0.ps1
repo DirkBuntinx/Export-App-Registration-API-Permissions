@@ -143,7 +143,7 @@ param(
 
 $Date = [DateTime]::Now
 $Script:StartTime = '{0:MM/dd/yyyy HH:mm:ss}' -f $Date
-$Script:FileName = "Export-AppReg_APIPermissions_$('{0:MMddyyyyHHmms}' -f $Date).csv"
+$Script:FileName = "Export-AppReg_APIPermissions_$('{0:MMddyyyyHHmms}' -f $Date)_$ExportAPIPermissions.csv"
 $Script:OutputStream = $null
 $Script:Tab = [char]9
 $Script:csvOutput = ""
@@ -823,6 +823,16 @@ Function Create-OutputFile
     }
 }
 
+function Check-AzureADConnection {
+    try{
+        Get-AzureADTenantDetail | Out-Null
+        return $true
+    }
+    catch{
+        return $false
+    }
+}
+
 # Helper function that connects to AzureAD and gets the Application Registration objects
 # First check if we connecting to AzureAD using either the Microsoft.Graph or AzureAD module and
 # connects to AzureAD either via Connect-MgGraph or Connect-AzureAD cmdlet
@@ -859,15 +869,22 @@ Function Get-AppRegistrationsFromAzureAD
         'AzureAD' 
             {
                 Write-Host "- Connecting using AzureAD module"
-                # Connect to AzureAD
-                try
-                {
-                    Connect-AzureAD -WarningAction:SilentlyContinue | Out-Null
-                }catch [system.exception]
+
+                # if not already connected, try to connect to AzureAD
+                if (-not (Check-AzureADConnection)){
+                    try
                     {
-                        Write-Host "Error connecting to AzureAD, exiting script" -ForegroundColor Red
-                        Exit
-                    }
+                        Connect-AzureAD -WarningAction:SilentlyContinue | Out-Null
+                    }catch [system.exception]
+                        {
+                            Write-Host "Error connecting to AzureAD, exiting script" -ForegroundColor Red
+                            Exit
+                        }
+                }
+                else{
+                    $tenant = ((Get-AzureADTenantDetail).VerifiedDomains | where {$_.Name -match "onmicrosoft" -and $_.Name -notmatch "mail\.onmicrosoft"}).Name
+                    Write-Host "- Using existing Azure AD connection to $tenant."
+                }
                 # Retrieve all the App Registrations
                 Write-Host "- Retrieving all Azure AD Application Registrations"
                 try
